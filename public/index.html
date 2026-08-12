@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Haven Specialty Coffee — Zamalek, Cairo</title>
+    <meta
+      name="description"
+      content="A cosy neighborhood café in the heart of Zamalek. Specialty coffee, desserts, curated teas and small plates. Open daily 7AM–1AM."
+    />
+    <link rel="alternate" hreflang="en" href="./en/" />
+    <link rel="alternate" hreflang="ar" href="./ar/" />
+    <link rel="alternate" hreflang="x-default" href="./en/" />
+
+    <!--
+      `output: 'export'` has no server, so proxy.ts cannot run and there is no
+      generated page at the site root. This file is copied verbatim into out/
+      and forwards visitors to their language. The meta refresh is the
+      no-JavaScript fallback; the script below beats it when JS is available.
+    -->
+    <meta http-equiv="refresh" content="0; url=./en/" />
+
+    <script>
+      (function () {
+        var saved = document.cookie.match(/(?:^|;\s*)lang=(en|ar)/);
+        var lang = saved
+          ? saved[1]
+          : (navigator.languages || [navigator.language || 'en'])
+              .some(function (l) { return /^ar\b/i.test(l); })
+            ? 'ar'
+            : 'en';
+        location.replace('./' + lang + '/' + location.search + location.hash);
+      })();
+    </script>
+
+    <style>
+      html { background: #f9d9b9; color: #5e1f13; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: system-ui, -apple-system, sans-serif;
+        text-align: center;
+      }
+      a { color: #c6453e; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <p>
+        <a href="./en/">Continue in English</a> &nbsp;·&nbsp;
+        <a href="./ar/">المتابعة بالعربية</a>
+      </p>
+    </noscript>
+  </body>
+</html>

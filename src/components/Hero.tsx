@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { localePath, type Locale } from '@/i18n/config';
+import { asset } from '@/lib/asset';
 import type { Dictionary } from '@/i18n';
 import styles from './Hero.module.css';
 
@@ -131,7 +132,7 @@ export default function Hero({ lang, t }: Props) {
         <div className={styles.visual} ref={visualRef}>
           <div className={styles.cupWrap}>
             <Image
-              src="/cup.png"
+              src={asset('/cup.png')}
               alt={t.cupAlt}
               width={850}
               height={930}

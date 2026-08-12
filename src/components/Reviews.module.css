@@ -69,7 +69,13 @@
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
-.marqueeRow { overflow: hidden; }
+/* The overflow container must be LTR even on the Arabic page: in an RTL block
+   the scroll origin sits at the right edge, so the negative translateX below
+   would slide the track clean out of view instead of through it. */
+.marqueeRow {
+  overflow: hidden;
+  direction: ltr;
+}
 
 /* No `gap` here on purpose: the spacing lives on each card as a margin, so the
    track width is an exact multiple of one copy. With `gap`, the last card of a
@@ -96,6 +102,17 @@
 @keyframes scrollRight {
   from { transform: translateX(-33.3333%); }
   to   { transform: translateX(0); }
+}
+
+/* When the visitor asks for less motion the global reset freezes the animation,
+   which would strand the rows mid-slide. Give them a swipeable strip instead. */
+@media (prefers-reduced-motion: reduce) {
+  .marqueeRow {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .marqueeRow::-webkit-scrollbar { display: none; }
+  .track { transform: none !important; }
 }
 
 /* ── Card ────────────────────────────────────────────── */

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from './Reveal';
 import { localePath, type Locale } from '@/i18n/config';
+import { asset } from '@/lib/asset';
 import type { Dictionary } from '@/i18n';
 import styles from './About.module.css';
 
@@ -40,7 +41,7 @@ export default function About({ lang, t }: Props) {
           <Reveal className={styles.gallery}>
             <div className={styles.photoMain}>
               <Image
-                src="/photo-interior.jpg"
+                src={asset('/photo-interior.jpg')}
                 alt={t.photoAlt.interior}
                 fill
                 sizes="(max-width: 900px) 92vw, 44vw"
@@ -50,7 +51,7 @@ export default function About({ lang, t }: Props) {
 
             <div className={styles.photoSmall}>
               <Image
-                src="/photo-latte.jpg"
+                src={asset('/photo-latte.jpg')}
                 alt={t.photoAlt.latte}
                 fill
                 sizes="(max-width: 900px) 44vw, 22vw"
@@ -60,7 +61,7 @@ export default function About({ lang, t }: Props) {
 
             <div className={styles.photoTall}>
               <Image
-                src="/photo-terrace.jpg"
+                src={asset('/photo-terrace.jpg')}
                 alt={t.photoAlt.terrace}
                 fill
                 sizes="(max-width: 900px) 44vw, 22vw"

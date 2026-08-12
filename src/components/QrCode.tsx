@@ -32,7 +32,12 @@ export default function QrCode({
 
   useEffect(() => {
     let cancelled = false;
-    const target = new URL(path, window.location.origin).toString();
+
+    // next/link adds the basePath for us; a hand-built URL has to do it itself,
+    // or the printed code points outside the deployment. The trailing slash
+    // matches `trailingSlash: true` and saves the phone a redirect hop.
+    const base = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+    const target = new URL(`${base}${path}/`, window.location.origin).toString();
 
     QRCode.toString(target, {
       type: 'svg',
