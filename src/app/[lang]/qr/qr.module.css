@@ -1,0 +1,159 @@
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 3.5rem 1.5rem 5rem;
+}
+
+/* ── Intro ───────────────────────────────────────────── */
+.intro {
+  max-width: 34rem;
+  text-align: center;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--c-brown);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: gap 0.25s var(--ease-out), color 0.25s;
+}
+
+.back:hover { gap: 0.7rem; color: var(--c-red); }
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0.8rem;
+}
+
+.lede {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  margin-bottom: 1.8rem;
+}
+
+/* ── Table tent ──────────────────────────────────────── */
+.tent {
+  width: min(100%, 400px);
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem 2rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--line);
+}
+
+.tentTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
+  border-bottom: 1.5px dashed var(--line-strong);
+  width: 100%;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--c-brown);
+  line-height: 1;
+}
+
+.brand svg { color: var(--c-red); }
+
+.brandSub {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-meta);
+}
+
+.instruction {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--c-red);
+  margin-bottom: 1.2rem;
+}
+
+.qr {
+  padding: 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--line);
+}
+
+.tentFoot {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1.5px dashed var(--line-strong);
+  width: 100%;
+  font-size: 0.78rem;
+  color: var(--text-body);
+}
+
+.hours {
+  margin-top: 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-red);
+}
+
+.tip {
+  font-size: 0.78rem;
+  color: var(--text-meta);
+  text-align: center;
+  max-width: 30rem;
+}
+
+/* ── Print ───────────────────────────────────────────── */
+@media print {
+  .intro,
+  .tip {
+    display: none !important;
+  }
+
+  .page {
+    min-height: 0;
+    padding: 0;
+    display: block;
+  }
+
+  .tent {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    border: 1.5px solid #000;
+    border-radius: 12px;
+    padding: 2.5rem;
+    page-break-inside: avoid;
+  }
+
+  /* Force full-contrast ink for the code and the rules around it */
+  .brand,
+  .instruction,
+  .hours { color: #000 !important; }
+}
+
+@page {
+  size: A5;
+  margin: 12mm;
+}
+
+/* ── RTL ─────────────────────────────────────────────── */
+:global([dir='rtl']) .back:hover { gap: 0.7rem; }

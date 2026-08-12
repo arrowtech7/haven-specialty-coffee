@@ -1,0 +1,366 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 9.5rem 2.5rem 0;
+  background: var(--c-white);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.02fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  min-height: min(74vh, 640px);
+  padding-bottom: 4.5rem;
+}
+
+/* ── Warm blob ───────────────────────────────────────── */
+.blob {
+  position: absolute;
+  top: 50%;
+  right: -6%;
+  transform: translateY(-50%);
+  width: min(46vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, var(--c-cream) 0%, var(--c-peach) 42%, var(--c-peach-deep) 100%);
+  z-index: 0;
+}
+
+.blob::after {
+  content: '';
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(198, 69, 62, 0.18);
+  animation: spinSlow 90s linear infinite;
+}
+
+/* ── Beans ───────────────────────────────────────────── */
+.bean1, .bean2, .bean3 {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+.bean1 { top: 22%; left: 3%;  animation: floatSlow 7s ease-in-out infinite; }
+.bean2 { bottom: 26%; left: 34%; animation: floatSlow 9s ease-in-out infinite 1.2s; }
+.bean3 { top: 16%; right: 40%; animation: floatSlow 8s ease-in-out infinite 0.6s; }
+
+/* ── Copy column ─────────────────────────────────────── */
+/* Two class names each, so these beat the shorthand in .animate-fade-up */
+.copy .eyebrow { animation-delay: 0ms; }
+.copy .title   { animation-delay: 90ms; }
+.copy .sub     { animation-delay: 180ms; }
+.copy .actions { animation-delay: 270ms; }
+.copy .trust   { animation-delay: 360ms; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--c-red);
+  margin-bottom: 0.9rem;
+}
+
+.dots { letter-spacing: 0.1em; opacity: 0.6; }
+.eyebrowBean { margin-left: 0.45rem; }
+
+.title {
+  font-size: clamp(2.9rem, 6.2vw, 5.1rem);
+  margin-bottom: 1.4rem;
+}
+
+.sub {
+  font-size: 1.02rem;
+  color: var(--text-body);
+  max-width: 30rem;
+  margin-bottom: 2.2rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.play {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--c-brown);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.playCircle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-brown);
+  color: var(--c-brown);
+  transition: background 0.3s var(--ease-out), color 0.3s, transform 0.3s var(--ease-out);
+}
+
+.play:hover { color: var(--c-red); }
+.play:hover .playCircle {
+  background: var(--c-red);
+  border-color: var(--c-red);
+  color: var(--c-white);
+  transform: scale(1.08);
+}
+
+/* ── Trust row ───────────────────────────────────────── */
+.trust {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.trustItem {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.trustItem strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--c-brown);
+}
+
+.trustItem span {
+  font-size: 0.76rem;
+  color: var(--text-meta);
+  letter-spacing: 0.02em;
+}
+
+.stars {
+  color: var(--c-red);
+  letter-spacing: 0.06em;
+  margin-right: 0.4rem;
+}
+
+.trustDivide {
+  width: 1px;
+  height: 34px;
+  background: var(--line-strong);
+}
+
+/* ── Visual column ───────────────────────────────────── */
+.visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 460px;
+  transform: translateY(var(--parallax, 0));
+  will-change: transform;
+}
+
+.cupWrap {
+  animation: floatY 6s ease-in-out infinite;
+  filter: drop-shadow(0 30px 40px rgba(94, 31, 19, 0.22));
+}
+
+.cup {
+  width: auto;
+  height: min(58vh, 500px);
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* ── Floating badges ─────────────────────────────────── */
+.badge {
+  position: absolute;
+  z-index: 3;
+  background: var(--c-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  animation: floatY 7s ease-in-out infinite;
+}
+
+.badgeTop {
+  top: 12%;
+  right: -4%;
+  animation-delay: 0.8s;
+}
+
+.badgeBottom {
+  bottom: 8%;
+  left: -8%;
+  animation-delay: 1.6s;
+}
+
+.badge strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--c-brown);
+  line-height: 1.2;
+}
+
+.badge > span {
+  font-size: 0.7rem;
+  color: var(--text-meta);
+}
+
+.badgeStars {
+  color: var(--c-red);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+}
+
+.badgeLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--c-brown);
+  margin-bottom: 0.35rem;
+}
+
+.avatarRow {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--c-white);
+  border: 2px solid var(--c-white);
+  margin-right: -9px;
+}
+
+.avatarCount {
+  margin-left: 15px;
+  background: var(--c-red);
+  color: var(--c-white);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.3rem 0.55rem;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-white);
+}
+
+/* ── Ticker ──────────────────────────────────────────── */
+.ticker {
+  position: relative;
+  z-index: 2;
+  margin: 0 -2.5rem;
+  background: var(--c-brown);
+  color: var(--c-cream);
+  overflow: hidden;
+  padding: 0.85rem 0;
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 34s linear infinite;
+}
+
+.tickerGroup {
+  display: flex;
+  align-items: center;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 0 1.4rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.92;
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── RTL ─────────────────────────────────────────────── */
+:global([dir='rtl']) .blob      { right: auto; left: -6%; }
+:global([dir='rtl']) .bean1     { left: auto; right: 3%; }
+:global([dir='rtl']) .bean2     { left: auto; right: 34%; }
+:global([dir='rtl']) .bean3     { right: auto; left: 40%; }
+:global([dir='rtl']) .badgeTop    { right: auto; left: -4%; }
+:global([dir='rtl']) .badgeBottom { left: auto; right: -8%; }
+:global([dir='rtl']) .avatar      { margin-right: 0; margin-left: -9px; }
+:global([dir='rtl']) .avatarCount { margin-left: 0; margin-right: 15px; }
+:global([dir='rtl']) .stars       { margin-right: 0; margin-left: 0.4rem; }
+:global([dir='rtl']) .eyebrowBean { margin-left: 0; margin-right: 0.45rem; }
+/* The ticker reads right-to-left too */
+:global([dir='rtl']) .tickerTrack { animation-direction: reverse; }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 1050px) {
+  .badgeTop { right: 0; }
+  .badgeBottom { left: 0; }
+}
+
+@media (max-width: 900px) {
+  .cup { height: min(46vh, 380px); }
+  .hero { padding: 7.5rem 1.5rem 0; text-align: center; }
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    min-height: 0;
+    padding-bottom: 3rem;
+  }
+  .copy { display: flex; flex-direction: column; align-items: center; order: 2; }
+  .visual { order: 1; min-height: 340px; margin-bottom: 1.5rem; }
+  .blob {
+    top: 34%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: min(80vw, 420px);
+  }
+  .sub { margin-bottom: 1.8rem; }
+  .actions { justify-content: center; margin-bottom: 2rem; }
+  .trust { justify-content: center; }
+  .trustItem { align-items: center; }
+  .cup { width: min(72%, 320px); }
+  .badgeTop { top: 4%; right: 2%; }
+  .badgeBottom { bottom: 2%; left: 2%; }
+  .cup { height: min(42vh, 330px); }
+  .ticker { margin: 0 -1.5rem; }
+  .bean2, .bean3 { display: none; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 6.5rem 1.15rem 0; }
+  .title { line-height: 1.1; }
+  .badge { padding: 0.55rem 0.7rem; }
+  .badge strong { font-size: 0.8rem; }
+  .badge > span { font-size: 0.62rem; }
+  .avatar { width: 24px; height: 24px; font-size: 0.5rem; }
+  .trustDivide { display: none; }
+  .ticker { margin: 0 -1.15rem; }
+}

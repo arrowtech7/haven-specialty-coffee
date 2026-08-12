@@ -1,0 +1,174 @@
+.about {
+  background: var(--c-white);
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 4.5rem;
+  align-items: center;
+}
+
+/* ── Gallery ─────────────────────────────────────────── */
+.gallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.photoMain {
+  position: relative;
+  grid-column: 1 / -1;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.photoSmall,
+.photoTall {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.photoImg {
+  object-fit: cover;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.photoMain:hover .photoImg,
+.photoSmall:hover .photoImg,
+.photoTall:hover .photoImg {
+  transform: scale(1.06);
+}
+
+/* ── Address stamp ───────────────────────────────────── */
+.stamp {
+  position: absolute;
+  right: -18px;
+  top: calc(60% - 46px);
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: var(--c-red);
+  color: var(--c-white);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  line-height: 1.2;
+  box-shadow: var(--shadow-red);
+  border: 4px solid var(--c-white);
+  animation: floatY 8s ease-in-out infinite;
+}
+
+.stamp strong {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.stampTop,
+.stampBottom {
+  font-size: 0.53rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* ── Text column ─────────────────────────────────────── */
+.heading {
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+  margin-bottom: 1.5rem;
+  max-width: 20ch;
+}
+
+.body {
+  margin-bottom: 1rem;
+  max-width: 46ch;
+}
+
+/* ── Pillars ─────────────────────────────────────────── */
+.pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin: 2.2rem 0;
+}
+
+.pillar {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.1rem 1.2rem;
+  border-radius: var(--radius-md);
+  background: var(--c-cream);
+  border: 1px solid transparent;
+  transition: transform 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.35s var(--ease-out);
+}
+
+.pillar:hover {
+  transform: translateX(6px);
+  border-color: var(--c-red-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.pillarIcon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--c-white);
+  color: var(--c-red);
+}
+
+.pillarIcon svg { width: 22px; height: 22px; }
+
+.pillarTitle {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--c-brown);
+  margin-bottom: 0.15rem;
+}
+
+.pillarDesc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.cta { margin-top: 0.25rem; }
+
+/* ── RTL ─────────────────────────────────────────────── */
+:global([dir='rtl']) .stamp { right: auto; left: -18px; }
+:global([dir='rtl']) .pillar:hover { transform: translateX(-6px); }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 950px) {
+  .grid { grid-template-columns: 1fr; gap: 3rem; }
+  .heading { max-width: none; }
+  .body { max-width: none; }
+  .stamp {
+    right: 8px;
+    top: auto;
+    bottom: 8px;
+    width: 88px;
+    height: 88px;
+  }
+  .stamp strong { font-size: 1.6rem; }
+}
+
+@media (max-width: 560px) {
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .stamp { width: 72px; height: 72px; border-width: 3px; }
+  .stamp strong { font-size: 1.3rem; }
+  .stampTop, .stampBottom { font-size: 0.45rem; }
+}

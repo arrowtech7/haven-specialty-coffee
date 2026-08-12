@@ -1,0 +1,218 @@
+.section {
+  background: var(--c-cream);
+  overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────── */
+.header {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto 3rem;
+}
+
+.heading {
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
+  margin-bottom: 1.6rem;
+}
+
+.score {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--c-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 0.7rem 1.6rem 0.7rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.scoreNum {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--c-red);
+}
+
+.scoreRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+.scoreCount {
+  font-size: 0.74rem;
+  color: var(--text-meta);
+}
+
+/* ── Stars ───────────────────────────────────────────── */
+.stars {
+  display: inline-flex;
+  gap: 1.5px;
+  color: var(--c-red);
+}
+
+.starFilled { color: var(--c-red); }
+.starEmpty  { color: var(--c-red-soft); }
+
+/* ── Marquee ─────────────────────────────────────────── */
+.marqueeWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 0.5rem 0 0;
+  /* Break out of the section's horizontal padding for an edge-to-edge marquee */
+  margin: 0 calc(-1 * var(--space-md)) 2.5rem;
+  /* Fade the rows into the background at both edges */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marqueeRow { overflow: hidden; }
+
+/* No `gap` here on purpose: the spacing lives on each card as a margin, so the
+   track width is an exact multiple of one copy. With `gap`, the last card of a
+   copy has no trailing space and the loop jumps by one gap every cycle. */
+.track {
+  display: flex;
+  width: max-content;
+  /* Direction is driven by the transform alone, so the two rows stay opposed
+     in both LTR and RTL. */
+  direction: ltr;
+}
+
+/* Slide by exactly one copy of the content — 1/3 of the track, see COPIES. */
+.trackLeft  { animation: scrollLeft 62s linear infinite; }
+.trackRight { animation: scrollRight 74s linear infinite; }
+
+.marqueeWrap:hover .track { animation-play-state: paused; }
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.3333%); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-33.3333%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Card ────────────────────────────────────────────── */
+.card {
+  flex-shrink: 0;
+  width: 340px;
+  /* Spacing as a margin, not a track gap — keeps the loop seamless. */
+  margin-right: 1.1rem;
+  background: var(--c-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 1.3rem 1.35rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: box-shadow 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--c-white);
+}
+
+.cardMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardName {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--c-brown);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardBadge {
+  font-size: 0.66rem;
+  color: var(--text-meta);
+}
+
+.cardText {
+  font-size: 0.83rem;
+  line-height: 1.65;
+  color: var(--text-body);
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.cardHighlight {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--c-red);
+  background: rgba(198, 69, 62, 0.09);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardDate {
+  font-size: 0.68rem;
+  color: var(--text-meta);
+  white-space: nowrap;
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+.originalNote {
+  text-align: center;
+  font-size: 0.74rem;
+  color: var(--text-meta);
+  margin-bottom: 1rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.reviewBtn { background: var(--c-white); }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 640px) {
+  .marqueeWrap { margin-left: -1.15rem; margin-right: -1.15rem; }
+  .card { width: 280px; padding: 1.1rem; }
+  .scoreNum { font-size: 2rem; }
+}

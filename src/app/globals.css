@@ -1,26 +1,347 @@
-@import "tailwindcss";
+/* ═══════════════════════════════════════════════════════
+   HAVEN — Design System
+   Brand kit: #C6453E · #5E1F13 · #664C47 · #FFF2E0 · #FFFFFF
+   Type: Romelio Sans (display) · Montserrat (body)
+   ═══════════════════════════════════════════════════════ */
+
+/* Drop the licensed Romelio Sans file in /public/fonts to activate it.
+   Until then the stack falls through to Marcellus (loaded via next/font),
+   which shares its flared-serif proportions.
+@font-face {
+  font-family: 'Romelio Sans';
+  src: url('/fonts/romelio-sans.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Brand palette ─────────────────────────────────── */
+  --c-red:        #C6453E;
+  --c-red-deep:   #A8352F;   /* derived — hover / pressed */
+  --c-red-soft:   #E9A9A4;   /* derived — tints, borders */
+  --c-brown:      #5E1F13;
+  --c-brown-mid:  #7A3225;   /* derived */
+  --c-mocha:      #664C47;
+  --c-mocha-soft: #9A8480;   /* derived — meta text */
+  --c-cream:      #FFF2E0;
+  --c-peach:      #F9D9B9;   /* derived — outer page frame */
+  --c-peach-deep: #F3C393;   /* derived — hero blob */
+  --c-white:      #FFFFFF;
+
+  /* Semantic */
+  --bg-page:      var(--c-peach);
+  --bg-surface:   var(--c-white);
+  --bg-alt:       var(--c-cream);
+  --text-strong:  var(--c-brown);
+  --text-body:    var(--c-mocha);
+  --text-meta:    var(--c-mocha-soft);
+  --line:         rgba(94, 31, 19, 0.10);
+  --line-strong:  rgba(94, 31, 19, 0.18);
+
+  /* ── Typography ────────────────────────────────────── */
+  --font-display: var(--font-romelio), 'Romelio Sans', Georgia, serif;
+  --font-body:    var(--font-montserrat), system-ui, -apple-system, sans-serif;
+
+  /* Tracking that only makes sense for Latin — Arabic is joined script and
+     letter-spacing breaks the connections. Overridden to 0 under [lang='ar']. */
+  --track-caps: 0.18em;
+
+  /* ── Spacing ───────────────────────────────────────── */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  2rem;
+  --space-lg:  4rem;
+  --space-xl:  7rem;
+
+  /* ── Radius ────────────────────────────────────────── */
+  --radius-sm:   10px;
+  --radius-md:   18px;
+  --radius-lg:   32px;
+  --radius-xl:   44px;
+  --radius-pill: 999px;
+
+  /* ── Shadows ───────────────────────────────────────── */
+  --shadow-sm:  0 2px 12px rgba(94, 31, 19, 0.06);
+  --shadow-md:  0 12px 36px rgba(94, 31, 19, 0.10);
+  --shadow-lg:  0 28px 70px rgba(94, 31, 19, 0.16);
+  --shadow-red: 0 10px 28px rgba(198, 69, 62, 0.32);
+
+  /* ── Motion ────────────────────────────────────────── */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ═══ Arabic ══════════════════════════════════════════════
+   Swaps in the Arabic faces and neutralises Latin-only text
+   treatments. Everything else inherits from the same tokens. */
+html[lang='ar'] {
+  --font-display: var(--font-aref), 'Aref Ruqaa', 'Amiri', Georgia, serif;
+  --font-body:    var(--font-tajawal), 'Tajawal', system-ui, sans-serif;
+  --track-caps: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html[lang='ar'] body {
+  line-height: 1.85;
+}
+
+/* Arabic is joined — spacing letters apart severs the connections. */
+html[lang='ar'] .section-label,
+html[lang='ar'] .tag {
+  letter-spacing: 0;
+}
+
+/* Ruqaa sits tall; give headings room so ascenders are not clipped. */
+html[lang='ar'] .display-title {
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+/* Arrow glyphs and chevrons point the other way in RTL. */
+[dir='rtl'] .dir-flip {
+  transform: scaleX(-1);
+}
+
+[dir='rtl'] .dir-flip-text {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background: var(--bg-page);
+  /* Sticky headers sit below the viewport top — offset anchor jumps */
+  scroll-padding-top: 96px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background: var(--bg-page);
+  color: var(--text-body);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--c-cream); }
+::-webkit-scrollbar-thumb {
+  background: var(--c-red-soft);
+  border-radius: var(--radius-pill);
+  border: 3px solid var(--c-cream);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--c-red); }
+
+::selection {
+  background: var(--c-red);
+  color: var(--c-white);
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--c-red);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+img { max-width: 100%; }
+
+/* ── Typography helpers ──────────────────────────────── */
+.display-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+  color: var(--text-strong);
+}
+
+.accent { color: var(--c-red); }
+
+/* ── Layout ──────────────────────────────────────────── */
+.section {
+  padding: var(--space-xl) var(--space-md);
+}
+
+.section-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Peach margin around the page — the framed look from the brand board */
+.frame {
+  padding: 1.15rem;
+}
+
+/* The white sheet the whole site sits on, inside the peach frame */
+.sheet {
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 640px) {
+  .frame { padding: 0.5rem; }
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--c-red);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.section-label-center { justify-content: center; }
+.section-label-center::before { display: none; }
+
+/* ── Buttons ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  padding: 0.95rem 2rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out),
+              background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+  background: var(--c-red);
+  color: var(--c-white);
+  box-shadow: var(--shadow-red);
+}
+.btn-primary:hover {
+  background: var(--c-red-deep);
+  box-shadow: 0 14px 34px rgba(198, 69, 62, 0.42);
+}
+
+.btn-dark {
+  background: var(--c-brown);
+  color: var(--c-cream);
+  box-shadow: 0 10px 28px rgba(94, 31, 19, 0.28);
+}
+.btn-dark:hover { background: var(--c-brown-mid); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--c-brown);
+  border-color: var(--line-strong);
+}
+.btn-ghost:hover {
+  background: var(--c-brown);
+  color: var(--c-cream);
+  border-color: var(--c-brown);
+}
+
+.btn-cream {
+  background: var(--c-cream);
+  color: var(--c-brown);
+}
+.btn-cream:hover { background: var(--c-white); }
+
+/* ── Chips / tags ────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+.tag-popular   { background: rgba(198, 69, 62, 0.12); color: var(--c-red); }
+.tag-signature { background: rgba(94, 31, 19, 0.10);  color: var(--c-brown); }
+.tag-new       { background: rgba(102, 76, 71, 0.12); color: var(--c-mocha); }
+
+/* ── Animations ──────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(4deg); }
+}
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-up { animation: fadeUp 0.8s var(--ease-out) both; }
+.animate-fade-in { animation: fadeIn 0.7s ease both; }
+
+/* Scroll-reveal — elements start hidden, .is-visible is added by an observer */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ── Responsive scale ────────────────────────────────── */
+@media (max-width: 900px) {
+  :root { --space-xl: 5rem; --space-lg: 3rem; --radius-xl: 30px; }
+}
+
+@media (max-width: 640px) {
+  :root { --space-xl: 4rem; --radius-xl: 22px; --radius-lg: 22px; }
+  .section { padding: var(--space-xl) 1.15rem; }
+  .btn { padding: 0.85rem 1.5rem; }
 }
